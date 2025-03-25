@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export type LayoutTab = 'sidebar' | 'header';
 
@@ -11,34 +11,11 @@ const setCookie = (name: string, value: string, days = 365) => {
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
-const applyTheme = (layoutTab: LayoutTab) => {
-   console.log(layoutTab);
-};
-
-const mediaQuery = () => {
-    if (typeof window === 'undefined') {
-        return null;
-    }
-
-    return window.matchMedia('(prefers-color-scheme: dark)');
-};
-
-const handleSystemThemeChange = () => {
-    const currentLayoutTab = localStorage.getItem('layoutTab') as LayoutTab;
-    applyTheme(currentLayoutTab || 'system');
-};
-
-export function initializeTheme() {
-    const savedLayoutTab = (localStorage.getItem('layoutTab') as LayoutTab) || 'system';
-
-    applyTheme(savedLayoutTab);
-
-    // Add the event listener for system theme changes...
-    mediaQuery()?.addEventListener('change', handleSystemThemeChange);
-}
-
 export function useLayoutTab() {
-    const [layoutTab, setLayoutTab] = useState<LayoutTab>('sidebar');
+    const [layoutTab, setLayoutTab] = useState<LayoutTab>(() => {
+        const savedLayoutTab = localStorage.getItem('layoutTab') as LayoutTab | null;
+        return savedLayoutTab || 'sidebar';
+    });
 
     const updateLayoutTab = useCallback((mode: LayoutTab) => {
         setLayoutTab(mode);
@@ -49,15 +26,9 @@ export function useLayoutTab() {
         // Store in cookie for SSR...
         setCookie('layoutTab', mode);
 
-        applyTheme(mode);
+        // Reload the page to apply the layout change...
+        window.location.reload();
     }, []);
-
-    useEffect(() => {
-        const savedLayoutTab = localStorage.getItem('layoutTab') as LayoutTab | null;
-        updateLayoutTab(savedLayoutTab || 'sidebar');
-
-        return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange);
-    }, [updateLayoutTab]);
 
     return { layoutTab, updateLayoutTab } as const;
 }
