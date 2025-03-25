@@ -8,7 +8,6 @@ import { Head } from '@inertiajs/react';
 
     import AppLayout from '@/layouts/app-layout';
     import SettingsLayout from '@/layouts/settings/layout';
-    import { useLayoutTab } from '@/hooks/use-layout-tab';
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -18,10 +17,9 @@ import { Head } from '@inertiajs/react';
     ];
 
     export default function Appearance() {
-        const { layoutTab } = useLayoutTab();
 
         return (
-            <AppLayout breadcrumbs={breadcrumbs} layout={layoutTab}>
+            <AppLayout breadcrumbs={breadcrumbs}>
                 <Head title="Appearance settings" />
 
                 <SettingsLayout>
