@@ -16,6 +16,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { router } from '@inertiajs/react';
+import { toast } from 'sonner';
 
 export const columns: ColumnDef<Team>[] = [
     {
@@ -71,6 +72,8 @@ export const columns: ColumnDef<Team>[] = [
             const handleDelete = (id: number) => {
                 if (confirm(`Are you sure you want to delete ${team.name}`)) {
                     router.delete(route('teams.destroy', { id }));
+
+                    toast.success(`${team.name} deleted successfully`);
                 }
             };
 

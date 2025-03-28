@@ -4,6 +4,9 @@ import { type BreadcrumbItem } from '@/types';
 import { type ReactNode } from 'react';
 import { useLayoutTab } from '@/hooks/use-layout-tab';
 
+import { Toaster } from "@/components/ui/sonner"
+
+
 interface AppLayoutProps {
     children: ReactNode;
     breadcrumbs?: BreadcrumbItem[];
@@ -16,6 +19,7 @@ export default function AppLayout({ children, breadcrumbs, ...props }: AppLayout
     return (
         <LayoutComponent breadcrumbs={breadcrumbs} {...props}>
             {children}
+            <Toaster position={'top-right'} />
         </LayoutComponent>
     );
 }

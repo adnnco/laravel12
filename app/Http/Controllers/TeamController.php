@@ -7,13 +7,16 @@ use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Team;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('teams/index', [
             'teams' => Team::all(),
