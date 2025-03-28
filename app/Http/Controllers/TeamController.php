@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Team;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
 class TeamController extends Controller
@@ -62,8 +63,10 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function destroy(Team $team): RedirectResponse
     {
-        //
+        $team->delete();
+
+        return redirect()->route('teams.index');
     }
 }

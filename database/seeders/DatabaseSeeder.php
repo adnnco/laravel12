@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Tournament::factory(10)->create();
-        Team::factory(10)->create();
+        Team::factory(50)->create();
     }
 }
