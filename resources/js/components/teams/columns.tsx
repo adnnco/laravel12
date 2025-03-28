@@ -34,7 +34,7 @@ export const columns: ColumnDef<Team>[] = [
         accessorKey: 'logo',
         header: 'Logo',
         cell: ({ row }) => {
-            return <img src={row.getValue('logo')} alt={row.getValue('name')} className="h-[24px] w-[24px] rounded-sm" />;
+            return <img src={row.getValue('logo')} alt={row.getValue('name')} className="h-[48px] w-[48px] rounded-sm" />;
         },
     },
     {
@@ -77,6 +77,10 @@ export const columns: ColumnDef<Team>[] = [
                 }
             };
 
+            const handleEdit = (id: number) => {
+                router.get(route('teams.edit', { id }));
+            }
+
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -90,7 +94,7 @@ export const columns: ColumnDef<Team>[] = [
                         <DropdownMenuItem onClick={() => navigator.clipboard.writeText(String(team.id))}>Copy Team ID</DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>View</DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onClick={()=> handleEdit(team.id)}>Edit</DropdownMenuItem>
                         <DropdownMenuItem variant={'destructive'} onClick={() => handleDelete(team.id)}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

@@ -1,10 +1,23 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
-import { type Team } from '@/types';
+import { Head, Link } from '@inertiajs/react';
+import { type BreadcrumbItem, type Team } from '@/types';
 
 import { columns } from '@/components/teams/columns';
 import { DataTable } from '@/components/ui/data-table';
 import { useEffect, useState } from 'react';
+import HeadingSmall from '@/components/heading-small';
+import { buttonVariants } from '@/components/ui/button';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Dashboard',
+        href: route('dashboard'),
+    },
+    {
+        title: 'Teams',
+        href: route('teams.index'),
+    },
+];
 
 export default function Index({ teams }: { teams: Team[] }) {
     const [data, setData] = useState<Team[]>(teams);
@@ -14,10 +27,16 @@ export default function Index({ teams }: { teams: Team[] }) {
     }, [teams]);
 
     return (
-        <AppLayout>
-            <Head title="Teams List" />
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title="Teams Create" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <div className="container mx-auto py-10">
+                <HeadingSmall title="Teams Overview" description="A comprehensive list of all teams in the organization." />
+
+                <div className="container mx-auto">
+                    <Link href={route('teams.create')} className={'mb-4 ' + buttonVariants({ variant: 'default', size: 'sm' })}>
+                        Create Team
+                    </Link>
+
                     <DataTable columns={columns} data={data} />
                 </div>
             </div>

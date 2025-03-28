@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Team;
+use App\Models\Tournament;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Team>
+ * @extends Factory<Team>
  */
 class TeamFactory extends Factory
 {
@@ -19,8 +21,8 @@ class TeamFactory extends Factory
         return [
             'name' => $this->faker->name,
             'slug' => $this->faker->slug,
-            'logo' => $this->faker->imageUrl(),
-            'tournament_id' => \App\Models\Tournament::factory(),
+            'logo' => 'https://placehold.co/96/'.ltrim($this->faker->hexColor, '#').'/png?text='.urlencode($this->faker->name),
+            'tournament_id' => Tournament::inRandomOrder()->first()->id,
             'national' => $this->faker->boolean,
         ];
     }
