@@ -20,22 +20,14 @@ import { toast } from 'sonner';
 
 export const columns: ColumnDef<Team>[] = [
     {
-        accessorKey: 'id',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Id
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            );
-        },
-    },
-    {
         accessorKey: 'logo',
         header: 'Logo',
         cell: ({ row }) => {
-            return <img src={row.getValue('logo')} alt={row.getValue('name')} className="h-[48px] w-[48px] rounded-sm" />;
+            return <img src={row.getValue('logo')} alt={row.getValue('name')} className="h-[48px] w-[48px] rounded-sm mx-auto" />;
         },
+        meta: {
+            className: 'text-center',
+        }
     },
     {
         accessorKey: 'name',
@@ -61,6 +53,10 @@ export const columns: ColumnDef<Team>[] = [
         cell: ({ row }) => {
             return row.getValue('national') ? <Badge variant="outline">Yes</Badge> : <Badge variant="secondary">No</Badge>;
         },
+        meta: {
+            className: 'hidden md:table-cell text-center',
+        }
+
     },
 
     {
@@ -100,5 +96,9 @@ export const columns: ColumnDef<Team>[] = [
                 </DropdownMenu>
             );
         },
+        meta: {
+            className: 'text-center',
+        }
+
     },
 ];

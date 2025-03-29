@@ -7,6 +7,7 @@ import { DataTable } from '@/components/ui/data-table';
 import { useEffect, useState } from 'react';
 import HeadingSmall from '@/components/heading-small';
 import { buttonVariants } from '@/components/ui/button';
+import { PlusCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -34,6 +35,7 @@ export default function Index({ teams }: { teams: Team[] }) {
 
                 <div className="container mx-auto">
                     <Link href={route('teams.create')} className={'mb-4 ' + buttonVariants({ variant: 'default', size: 'sm' })}>
+                        <PlusCircle className="h-4 w-4" />
                         Create Team
                     </Link>
 
